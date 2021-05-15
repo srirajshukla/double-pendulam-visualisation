@@ -3,27 +3,35 @@ import * as dp from "dp-vis";
 /*
 Webpage specific constants.
 */
-const WIDTH = 600;
-const HEIGHT = 500;
-const BLACK = "#FFFFFF";    
-const WHITE = "rgba(0, 0, 0, 1)";
-const LINE = "rgba(0, 255, 255, 1)";
-const BOB = "rgba(165, 55, 253, 1)";
-
+const WIDTH = 700;
+const HEIGHT = 600;
+const BLACK = "rgba(0, 0, 0, 1)";
+const WHITE = "rgba(255, 255, 255, 1)";
 /*
 Pendulam Constants
 */
-const m1 = 7.5;
+
 const m2 = 10;
 const a1 = Math.PI/3;
 const a2 = 2*Math.PI/3;
-const l1 = 150;
+const l1 = 100;
 const l2 = 100;
-const damp_factor = 0.01;
+const damp_factor = (0.001+0.0001)/2;
 
+let pv = dp.PendulamVector.new();
 
-let p = dp.Pendulam.new(m1, m2, a1, a2, l1, l2, damp_factor);
+let m1;
 
+const createobject = () =>{
+    
+    m1 = document.getElementById('volume').value;
+
+    for(let i = 0; i<850; i++){
+        let lc = dp.Colors.new(i, (102+i), 230-5*i, 1.0);
+        let bc = dp.Colors.new(i, 202-i, 130-5*i, 1.0);
+        pv.add(dp.Pendulam.new_with_color(m1+i*5, m2, a1-0.05*i, a2+0.05*i, l1+0.1*i, l2, damp_factor, lc, bc));
+    }
+};
 const canvas = document.getElementById('pendulam');
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
@@ -54,8 +62,8 @@ const pxy = (x1, y1, x2, y2) => {
 constants related to drawing of pendulam motion
 */
 
-let originX = WIDTH / 2 - WIDTH / 10;
-let originY = 150;
+let originX = WIDTH / 2;
+let originY = 300;
 let paint_background = false;
 
 /*
