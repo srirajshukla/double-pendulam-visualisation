@@ -67,20 +67,30 @@ It draws:
     4. Second Bob
 */
 
-const draw = () => {
+const printInfo = (index) =>{
+    let x1 = pv.item_x1(index);
+    let y1 = -1 * pv.item_y1(index);
+    let x2 = pv.item_x2(index);
+    let y2 = -1 * pv.item_y2(index);
+    
+    pxy(x1, y1, x2, y2);
+}
+
+
+const drawInd = (index) => {
     if (paint_background) {
         ctx.fillStyle = WHITE;
         ctx.fillRect(0, 0, WIDTH, HEIGHT);
     }
-    ctx.fillStyle = BOB;
-    ctx.strokeStyle = LINE;
+    ctx.fillStyle = pv.item_bob_color(index);
+    ctx.strokeStyle = pv.item_line_color(index);
     
-    let x1 = p.x1();
-    let y1 = -1 * p.y1();
-    let x2 = p.x2();
-    let y2 = -1 * p.y2();
+    let x1 = pv.item_x1(index);
+    let y1 = -1 * pv.item_y1(index);
+    let x2 = pv.item_x2(index);
+    let y2 = -1 * pv.item_y2(index);
     
-    pxy(x1, y1, x2, y2);
+    printInfo(index);
     
     ctx.beginPath();
     ctx.moveTo(originX, originY);
@@ -105,10 +115,17 @@ const draw = () => {
 };
 
 const renderLoop = () => {
-    p.motion();
-    draw();
+
+    for(let i = 0; i<pv.size(); i++){
+        pv.item_motion(i);
+        drawInd(i);
+    }
+
     requestAnimationFrame(renderLoop);
+
 };
+
+createobject();
 requestAnimationFrame(renderLoop);
 
 /*
@@ -117,7 +134,9 @@ requestAnimationFrame(renderLoop);
 
 document.getElementById('change_backgound').onclick = function (){
     if (paint_background)
-    paint_background = false;
+        paint_background = false;
     else
         paint_background = true;
 }
+
+document.getElementById('volume').addEventListener('change', createobject);
