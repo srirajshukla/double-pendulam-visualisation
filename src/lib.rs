@@ -15,6 +15,14 @@ pub struct Pendulam {
     line_color: Colors,
     bob_color: Colors
 }
+
+#[wasm_bindgen]
+#[derive(Clone, Debug)]
+pub struct PendulamVector{
+    pv: Vec<Pendulam>,
+    size: usize,
+}
+
 /// Colors: Models the rgba color type
 /// red: u8
 /// green: u8
@@ -50,6 +58,48 @@ impl Colors{
         format!("rgba({}, {}, {}, {})", self.red, self.green, self.blue, self.alpha)
     }
 }
+
+#[wasm_bindgen]
+impl PendulamVector {
+    pub fn new() -> Self{
+        PendulamVector {pv:vec![], size:0}
+    }
+
+    pub fn size(&self) -> usize{
+        self.pv.len()
+    }
+
+    pub fn add(&mut self, pendulam: Pendulam){
+        self.pv.push(pendulam);
+    }
+
+    pub fn remove(&mut self, index: usize){
+        self.pv.remove(index);
+    }
+
+    pub fn item_x1(&self, index:usize) -> f64{
+        return self.pv[index].x1()
+    }
+    pub fn item_x2(&self, index:usize) -> f64{
+        return self.pv[index].x2()
+    }
+    pub fn item_y1(&self, index:usize) -> f64{
+        return self.pv[index].y1()
+    }
+    pub fn item_y2(&self, index:usize) -> f64{
+        return self.pv[index].y2()
+    }
+
+    pub fn item_motion(&mut self, index:usize) {
+        self.pv[index].motion()
+    }
+
+    pub fn item_line_color(&self, index:usize) -> String{
+        self.pv[index].line_color.rgba()
+    }
+    pub fn item_bob_color(&self, index:usize) -> String{
+        self.pv[index].bob_color.rgba()
+    }
 }
 
 #[wasm_bindgen]
