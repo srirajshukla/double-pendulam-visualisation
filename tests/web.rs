@@ -5,9 +5,31 @@
 extern crate wasm_bindgen_test;
 use wasm_bindgen_test::*;
 
-wasm_bindgen_test_configure!(run_in_browser);
+extern crate dp_vis;
+use dp_vis::*;
+// wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
-fn pass() {
-    assert_eq!(1 + 1, 2);
+// #[cfg(test)]
+fn dp (){
+    let pi = std::f64::consts::PI;
+    let p = Pendulam::new(10.0, 10.0, 0.0, pi/2.0, 50.0, 50.0, 0.01);
+    assert_eq!(p.x1(), 0.0);
+}
+
+#[wasm_bindgen_test]
+fn dnpvec(){
+    let pi = std::f64::consts::PI;
+    let p = Pendulam::new(10.0, 10.0, 0.0, pi/2.0, 50.0, 50.0, 0.01);
+    let mut pv = PendulamVector::new();
+
+    pv.add(p);
+
+    assert_eq!(pv.item_x1(0), 0.0);
+}
+
+#[wasm_bindgen_test]
+fn testcolor(){
+    let red = Colors::new(248, 0, 0, 0.8);
+    assert_eq!(red.rgba(), String::from("rgba(248, 0, 0, 0.8)"));
 }
