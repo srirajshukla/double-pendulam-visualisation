@@ -147,4 +147,28 @@ document.getElementById('change_backgound').onclick = function (){
         paint_background = true;
 }
 
-document.getElementById('volume').addEventListener('change', createobject);
+/*
+Printing Info
+*/
+
+let info = document.getElementById('info');
+const printInfo = (index) => {
+    let x1 = pv.item_x1(index);
+    let y1 = -1 * pv.item_y1(index);
+    let x2 = pv.item_x2(index);
+    let y2 = -1 * pv.item_y2(index);
+
+    let m1 = pv.item_m1(index);
+    let m2 = pv.item_m2(index);
+    let l1 = pv.item_l1(index);
+    let l2 = pv.item_l2(index);
+    let s = `
+Pendulam ${index+1} <br>
+Fixed Constants: <br>m1: ${m1}\tm2: ${m2}    l1: ${l1}\tl2: ${l2}<br><br>
+Dampening Constant: ${damp_factor}<br>(x1, y1) :  (${x1}, ${y1})<br>(x2, y2) :  (${x2}, ${y2})<br><br><br>`;
+
+    let infoobj = document.createElement('p');
+    infoobj.innerHTML = s;
+    info.appendChild(infoobj)
+};
+
