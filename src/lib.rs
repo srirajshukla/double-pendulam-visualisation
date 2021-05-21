@@ -10,6 +10,10 @@ use wasm_bindgen::prelude::*;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+/// Pendulam Struct
+/// Members: p - Pendulam Structure
+///          line_color: Color of Rod
+///          bob_color:  Color of Bob
 #[wasm_bindgen]
 #[derive(Clone, Copy, Debug)]
 pub struct Pendulam {
@@ -18,6 +22,54 @@ pub struct Pendulam {
     bob_color: Colors
 }
 
+
+#[wasm_bindgen]
+impl Pendulam {
+    pub fn new(m1: f64, m2:f64, a1: f64, a2: f64, l1:f64, l2:f64, damp_factor:f64) -> Pendulam {
+        // todo: expose angle a1 and a2 to public api
+        let pendulam = DoublePendulam::new(m1, m2, a1, a2, l1, l2, damp_factor);
+        let line_color = Colors::new(0, 254, 254, 1f64);        // black
+        let bob_color = Colors::new(254, 0, 0, 1f64);       // red
+        Pendulam { p: pendulam, line_color, bob_color}
+    }
+    pub fn new_with_color(m1: f64, m2:f64, a1: f64, a2: f64, l1:f64, l2:f64, damp_factor:f64, line_color: Colors, bob_color: Colors) -> Pendulam {
+        // todo: expose angle a1 and a2 to public api
+        let pendulam = DoublePendulam::new(m1, m2, a1, a2, l1, l2, damp_factor);
+        Pendulam { p: pendulam, line_color, bob_color}
+    }
+    
+    pub fn x1(&self) -> f64{
+        self.p.get_joint().x()
+    }
+    pub fn x2(&self) -> f64{
+        self.p.get_end().x()
+    }
+    pub fn y1(&self) -> f64{
+        self.p.get_joint().y()
+    }
+    pub fn y2(&self) -> f64{
+        self.p.get_end().y()
+    }
+
+    pub fn m1(&self) -> f64{
+        self.p.m1()
+    }
+    pub fn m2(&self) -> f64{
+        self.p.m2()
+    }
+    pub fn l1(&self) -> f64{
+        self.p.l1()
+    }
+    pub fn l2(&self) -> f64{
+        self.p.l2()
+    }
+
+    pub fn motion(&mut self){
+        self.p.new_pos();
+    }
+}
+
+
 #[wasm_bindgen]
 #[derive(Clone, Debug)]
 pub struct PendulamVector{
@@ -25,41 +77,7 @@ pub struct PendulamVector{
     size: usize,
 }
 
-/// Colors: Models the rgba color type
-/// red: u8
-/// green: u8
-/// blue: u8
-/// alpha: f64
-#[wasm_bindgen]
-#[derive(Clone, Copy, Debug)]
-pub struct Colors{
-    red: u8,
-    green: u8,
-    blue: u8,
-    alpha: f64,
-}
 
-#[wasm_bindgen]
-impl Colors{
-    pub fn new(red: u8, green: u8, blue: u8, alpha: f64) -> Self{
-        Colors{
-            red: red.rem_euclid(255),
-            green: green.rem_euclid(255),
-            blue: blue.rem_euclid(255),
-            alpha : if alpha>1.0{
-                1.0
-            } else if alpha <0.0{
-                0.0
-            } else{
-                alpha
-            }
-        }
-    }
-
-    pub fn rgba(&self) -> String{
-        format!("rgba({}, {}, {}, {})", self.red, self.green, self.blue, self.alpha)
-    }
-}
 
 #[wasm_bindgen]
 impl PendulamVector {
@@ -102,37 +120,17 @@ impl PendulamVector {
     pub fn item_bob_color(&self, index:usize) -> String{
         self.pv[index].bob_color.rgba()
     }
-}
 
-#[wasm_bindgen]
-impl Pendulam {
-    pub fn new(m1: f64, m2:f64, a1: f64, a2: f64, l1:f64, l2:f64, damp_factor:f64) -> Pendulam {
-        // todo: expose angle a1 and a2 to public api
-        let pendulam = DoublePendulam::new(m1, m2, a1, a2, l1, l2, damp_factor);
-        let line_color = Colors::new(0, 0, 0, 1f64);        // black
-        let bob_color = Colors::new(255, 0, 0, 1f64);       // red
-        Pendulam { p: pendulam, line_color, bob_color}
+    pub fn item_m1(&self, index: usize) -> f64{
+        self.pv[index].m1()
     }
-    pub fn new_with_color(m1: f64, m2:f64, a1: f64, a2: f64, l1:f64, l2:f64, damp_factor:f64, line_color: Colors, bob_color: Colors) -> Pendulam {
-        // todo: expose angle a1 and a2 to public api
-        let pendulam = DoublePendulam::new(m1, m2, a1, a2, l1, l2, damp_factor);
-        Pendulam { p: pendulam, line_color, bob_color}
+    pub fn item_m2(&self, index: usize) -> f64{
+        self.pv[index].m2()
     }
-    
-    pub fn x1(&self) -> f64{
-        self.p.get_joint().x()
+    pub fn item_l1(&self, index: usize) -> f64{
+        self.pv[index].l1()
     }
-    pub fn x2(&self) -> f64{
-        self.p.get_end().x()
-    }
-    pub fn y1(&self) -> f64{
-        self.p.get_joint().y()
-    }
-    pub fn y2(&self) -> f64{
-        self.p.get_end().y()
-    }
-
-    pub fn motion(&mut self){
-        self.p.new_pos();
+    pub fn item_l2(&self, index: usize) -> f64{
+        self.pv[index].l2()
     }
 }
