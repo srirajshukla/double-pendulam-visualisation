@@ -1,4 +1,6 @@
 mod utils;
+mod colors;
+use colors::Colors;
 use double_pendulam::DoublePendulam;
 use wasm_bindgen::prelude::*;
 
