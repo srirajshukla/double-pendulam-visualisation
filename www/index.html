@@ -3,27 +3,58 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Hello wasm-pack!</title>
+  <title>Simulating Double Pendulam Chaos</title>
   <style type="text/css">
-    body{
-      margin: 50px;
-      margin-left: 200px;
-    }
     canvas {
       border: 1px solid black;
     }
   </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <canvas id="pendulam"></canvas>
-  <pre id="info"></pre>
-  <button id="change_backgound">Change Background Paint Status</button>   
-  <label for="volume">M1</label>
-  <input type="range" id="volume" name="volume" min="0" max="20">
+  <div class="grid-container">
+
+    <div class="Pendulam-Viewport">
+      <canvas id="pendulam"></canvas>
+    </div>
+
+    <div class="Pendulam-Info">
+      <div id="info"></div>
+    </div>
+
+    <div class="Change-Background">
+      <button id="change_backgound">Change Background Paint Status</button>
+      <button id="pause_background">Pause Sim</button>
+    </div>
+
+    <div class="Add-More-Pendulam">
+      <div class="params">
+        <label for="volume">M1 </label> <br>
+        <input type="range" id="m1cntrl" name="volume" min="5" max="20">
+        <br>
+        <label for="volume">M2 </label> <br>
+        <input type="range" id="m2cntrl" name="volume" min="5" max="20">
+        <br>
+        <label for="volume">L1 </label> <br>
+        <input type="range" id="l1cntrl" name="volume" min="50" max="200">
+        <br>
+        <label for="volume">L2 </label> <br>
+        <input type="range" id="l2cntrl" name="volume" min="50" max="200">
+        <br>
+        <label for="lcolor">Line Color:</label>
+        <input type="color" id="lcolor" name="lcolor">
+        <br>
+        <label for="bcolor">Bob Color:</label>
+        <input type="color" id="bcolor" name="bcolor">
+      </div>
+      <button id="new_pendulam">Add One More Pendulam</button>
+    </div>
+
+  </div>
+
   <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
   <script src="./bootstrap.js"></script>
-  
 </body>
 
 </html>

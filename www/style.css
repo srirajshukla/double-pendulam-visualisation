@@ -1,0 +1,29 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "Pendulam-Viewport Pendulam-Viewport Pendulam-Info Pendulam-Info"
+        "Pendulam-Viewport Pendulam-Viewport Pendulam-Info Pendulam-Info"
+        "Change-Background Add-More-Pendulam . .";
+    
+}
+
+.Pendulam-Viewport {
+    grid-area: Pendulam-Viewport;
+}
+
+.Pendulam-Info {
+    grid-area: Pendulam-Info;
+    height: 70vh;
+    overflow: scroll;
+}
+
+.Change-Background {
+    grid-area: Change-Background;
+}
+
+.Add-More-Pendulam {
+    grid-area: Add-More-Pendulam;
+}
