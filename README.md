@@ -5,21 +5,22 @@
 # Dependencies
 
 - [Double Pendulam](https://github.com/srirajshukla/double-pendulam-calc-rust)
-- wasm-pack
-- node.js
+- [wasm-pack](https://github.com/rustwasm/wasm-pack)
+- [node.js](https://nodejs.org/en/)
 
 # Building
-Download  the [Double Pendulam](https://github.com/srirajshukla/double-pendulam-calc-rust). In `Cargo.toml` file, in dependencies section, edit the path of `double-pendulum` to the downloaded relative location of the library. 
+1. Download  the [Double Pendulam](https://github.com/srirajshukla/double-pendulam-calc-rust) library. 
+2. In `Cargo.toml` file, in dependencies section, edit the path of `double-pendulum` to the downloaded relative location of the library. 
 
-Next, make sure that you have installed `wasm-pack`, if not, you can install it using 
+3. Next, make sure that you have installed `wasm-pack`, if not, you can install it using 
 `cargo install wasm-pack`.
 
-Next, build the `dp-vis` library using 
+4. Next, build the `dp-vis` library using 
 `wasm-pack build`.
 
-Make sure that you've [Node.js](https://nodejs.org/en/) installed, if not install it. 
+5. Make sure that you've [Node.js](https://nodejs.org/en/) installed, if not install it. 
 
-Now, cd into `/www/` directory and run
+6. Now, cd into `/www/` directory and run
 `npm run start` command, and voila! You're done!
 
 # Examples
