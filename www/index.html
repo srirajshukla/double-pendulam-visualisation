@@ -9,14 +9,18 @@
       border: 1px solid black;
     }
   </style>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
 <body>
   <div class="grid-container">
 
     <div class="Pendulam-Viewport">
-      <canvas id="pendulam"></canvas>
+      <canvas id="pendulam" aria-label="This Canvas displays the simulation of multiple double pendulams and how even 
+      small changes in starting variables greatly change the motion of these objects.">
+        This Canvas displays the simulation of multiple double pendulams and how even 
+        small changes in starting variables greatly change the motion of these objects.
+      </canvas>
     </div>
 
     <div class="Pendulam-Info">
@@ -30,17 +34,17 @@
 
     <div class="Add-More-Pendulam">
       <div class="params">
-        <label for="volume">M1 </label> <br>
-        <input type="range" id="m1cntrl" name="volume" min="5" max="20">
+        <label for="m1cntrl">M1 </label> <br>
+        <input type="range" id="m1cntrl" name="m1" min="5" max="20">
         <br>
-        <label for="volume">M2 </label> <br>
-        <input type="range" id="m2cntrl" name="volume" min="5" max="20">
+        <label for="m2cntrl">M2 </label> <br>
+        <input type="range" id="m2cntrl" name="m2" min="5" max="20">
         <br>
-        <label for="volume">L1 </label> <br>
-        <input type="range" id="l1cntrl" name="volume" min="50" max="200">
+        <label for="l1cntrl">L1 </label> <br>
+        <input type="range" id="l1cntrl" name="l1" min="50" max="200">
         <br>
-        <label for="volume">L2 </label> <br>
-        <input type="range" id="l2cntrl" name="volume" min="50" max="200">
+        <label for="l2cntrl">L2 </label> <br>
+        <input type="range" id="l2cntrl" name="l2" min="50" max="200">
         <br>
         <label for="lcolor">Line Color:</label>
         <input type="color" id="lcolor" name="lcolor">
