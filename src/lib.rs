@@ -134,3 +134,17 @@ impl PendulumVector {
         self.pv[index].l2()
     }
 }
+
+#[cfg(test)]
+mod tests{
+    use super::*;
+    
+    #[test]
+    fn test_single_color_passing(){
+        let c = Colors::new(20, 30, 40, 1.0);
+        let p = Pendulum::new_with_color(1.0, 1.0, 0.0, 0.0, 10.0, 10.0, 0.0, c, c);
+
+        println!("{:?}", &p);
+        assert_eq!(p.m1(), 1.0);
+    }
+}
