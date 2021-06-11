@@ -1,6 +1,6 @@
-# Double Pendulam Visualization
+# Double Pendulum Visualization
 
-## Visualizing double pendulam motion using wasm and rust.
+## Visualizing double pendulum motion using wasm and rust.
 
 # Dependencies
 
@@ -27,4 +27,5 @@ The Double Pendulum library has now been added as an Cargo dependency, so you do
    `npm run start` command, and voila! You're done!
 
 # Examples
+![100 Double Pendulums in colors of rainbow](./examples/rainbowPend.gif)
 ![3 Double Pendulums in their motion, followed by adding another pendulum.](./examples/pendulum_ssGif.gif)
