@@ -1,7 +1,7 @@
 mod utils;
 mod colors;
 use colors::Colors;
-use double_pendulam::DoublePendulam;
+use double_pendulum::DoublePendulum;
 use wasm_bindgen::prelude::*;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -10,32 +10,32 @@ use wasm_bindgen::prelude::*;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-/// Pendulam Struct
-/// Members: p - Pendulam Structure
+/// Pendulum Struct
+/// Members: p - Pendulum Structure
 ///          line_color: Color of Rod
 ///          bob_color:  Color of Bob
 #[wasm_bindgen]
 #[derive(Clone, Copy, Debug)]
-pub struct Pendulam {
-    p: DoublePendulam,
+pub struct Pendulum {
+    p: DoublePendulum,
     line_color: Colors,
     bob_color: Colors
 }
 
 
 #[wasm_bindgen]
-impl Pendulam {
-    pub fn new(m1: f64, m2:f64, a1: f64, a2: f64, l1:f64, l2:f64, damp_factor:f64) -> Pendulam {
+impl Pendulum {
+    pub fn new(m1: f64, m2:f64, a1: f64, a2: f64, l1:f64, l2:f64, damp_factor:f64) -> Self {
         // todo: expose angle a1 and a2 to public api
-        let pendulam = DoublePendulam::new(m1, m2, a1, a2, l1, l2, damp_factor);
+        let pendulum = DoublePendulum::new(m1, m2, a1, a2, l1, l2, damp_factor);
         let line_color = Colors::new(0, 254, 254, 1f64);        // black
         let bob_color = Colors::new(254, 0, 0, 1f64);       // red
-        Pendulam { p: pendulam, line_color, bob_color}
+        Pendulum { p: pendulum, line_color, bob_color}
     }
-    pub fn new_with_color(m1: f64, m2:f64, a1: f64, a2: f64, l1:f64, l2:f64, damp_factor:f64, line_color: Colors, bob_color: Colors) -> Pendulam {
+    pub fn new_with_color(m1: f64, m2:f64, a1: f64, a2: f64, l1:f64, l2:f64, damp_factor:f64, line_color: Colors, bob_color: Colors) -> Self {
         // todo: expose angle a1 and a2 to public api
-        let pendulam = DoublePendulam::new(m1, m2, a1, a2, l1, l2, damp_factor);
-        Pendulam { p: pendulam, line_color, bob_color}
+        let pendulum = DoublePendulum::new(m1, m2, a1, a2, l1, l2, damp_factor);
+        Pendulum { p: pendulum, line_color, bob_color}
     }
     
     pub fn x1(&self) -> f64{
@@ -72,25 +72,25 @@ impl Pendulam {
 
 #[wasm_bindgen]
 #[derive(Clone, Debug)]
-pub struct PendulamVector{
-    pv: Vec<Pendulam>,
+pub struct PendulumVector{
+    pv: Vec<Pendulum>,
     size: usize,
 }
 
 
 
 #[wasm_bindgen]
-impl PendulamVector {
+impl PendulumVector {
     pub fn new() -> Self{
-        PendulamVector {pv:vec![], size:0}
+        PendulumVector {pv:vec![], size:0}
     }
 
     pub fn size(&self) -> usize{
         self.pv.len()
     }
 
-    pub fn add(&mut self, pendulam: Pendulam){
-        self.pv.push(pendulam);
+    pub fn add(&mut self, pendulum: Pendulum){
+        self.pv.push(pendulum);
     }
 
     pub fn remove(&mut self, index: usize){
