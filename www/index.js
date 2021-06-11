@@ -1,4 +1,5 @@
 import * as dp from "dp-vis";
+// dp = require("dp-vis")
 /*
 Webpage specific constants.
 */
@@ -17,15 +18,17 @@ const a1 = Math.PI / 3;
 const a2 = 2 * Math.PI / 3;
 const l1_def = 100;
 const l2_def = 100;
-const damp_factor = 0.001;
+const damp_factor = 0.02;
 
-let pv = dp.PendulamVector.new();
+const starting_number_of_pendulums = 100;
+
+let pv = dp.PendulumVector.new();
 
 const createobject = () => {
-    for (let i = 0; i < 1; i++) {
-        let lc = dp.Colors.new(i + 12, (12 + i), 230 - 5 * i, 0.3);
-        let bc = dp.Colors.new(i + 15, 202 - i, 130 - 5 * i, 0.75);
-        pv.add(dp.Pendulam.new_with_color(m1_def + i, m2_def, a1 - 0.05 * i, a2 + 0.05 * i, l1_def + 0.1 * i, l2_def, damp_factor, lc, bc));
+    for (let i = 0; i < starting_number_of_pendulums; i++) {
+        let ch = dp.Colors.new_hsla((i/starting_number_of_pendulums), 0.80,0.50, 0.3);
+        let ch2 = dp.Colors.new_hsla((i/starting_number_of_pendulums), 0.80,0.50, 1.0);
+        pv.add(dp.Pendulum.new_with_color(m1_def + i*0.00001, m2_def, a1 - 0.005 * i, a2 + 0.005 * i, l1_def + 0.001 * i, l2_def, damp_factor, ch, ch2));
         // pv.remove(1);
     }
 };
@@ -143,7 +146,6 @@ const hextorgb = function(hexcolor) {
     let green = parseInt(hexcolor.slice(3, 5), 16);
     let blue = parseInt(hexcolor.slice(5, 7), 16);
 
-    console.log(`Hex: ${hexcolor}\n(rgb): (${red}, ${green}, ${blue})`)
     return [red, green, blue];
 }
 
@@ -160,11 +162,7 @@ document.getElementById('new_pendulam').onclick = function () {
     let linec = dp.Colors.new(linecol[0], linecol[1], linecol[2], 1.0);
     let bobc = dp.Colors.new(bobcol[0], bobcol[1], bobcol[2], 1.0);
 
-    console.log(`${linecol}\n${linec.rgba()}`)
-
-    console.log(`(m1, m2, l1, l2) : (${m1}, ${m2}, ${l1}, ${l2})`);
-    console.log(`Linecol: ${linecol}\nBobcol: ${bobcol}`);
-    pv.add(dp.Pendulam.new_with_color(m1, m2, a1 - 0.05, a2 + 0.05, l1, l2, damp_factor, linec, bobc));
+    pv.add(dp.Pendulum.new_with_color(m1, m2, a1 - 0.05, a2 + 0.05, l1, l2, damp_factor, linec, bobc));
 }
 
 document.getElementById('pause_background').onclick = function(){
@@ -192,9 +190,9 @@ const printInfo = (index) => {
     let l1 = pv.item_l1(index);
     let l2 = pv.item_l2(index);
     let s = `
-Pendulam ${index+1} <br>
+Pendulum ${index+1} <br>
 Fixed Constants: <br>m1: ${m1}\tm2: ${m2}    l1: ${l1}\tl2: ${l2}<br><br>
-Dampening Constant: ${damp_factor}<br>(x1, y1) :  (${x1}, ${y1})<br>(x2, y2) :  (${x2}, ${y2})<br><br><br>`;
+Dampening Constant: ${damp_factor}<br>(x1, y1) :  (${x1.toFixed(5)}, ${y1.toFixed(5)})<br>(x2, y2) :  (${x2.toFixed(5)}, ${y2.toFixed(5)})<br><br><br>`;
 
     let infoobj = document.createElement('p');
     infoobj.innerHTML = s;
