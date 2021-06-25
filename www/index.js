@@ -18,18 +18,17 @@ const a1 = Math.PI / 3;
 const a2 = 2 * Math.PI / 3;
 const l1_def = 100;
 const l2_def = 100;
-const damp_factor = 0.02;
+const damp_factor = 0.01;
 
-const starting_number_of_pendulums = 100;
+const starting_number_of_pendulums = 7;
 
 let pv = dp.PendulumVector.new();
 
-const createobject = () => {
-    for (let i = 0; i < starting_number_of_pendulums; i++) {
-        let ch = dp.Colors.new_hsla((i/starting_number_of_pendulums), 0.80,0.50, 0.3);
-        let ch2 = dp.Colors.new_hsla((i/starting_number_of_pendulums), 0.80,0.50, 1.0);
+const createobject = (number_of_pendulums) => {
+    for (let i = 0; i < number_of_pendulums; i++) {
+        let ch = dp.Colors.new_hsla(((number_of_pendulums - 1- i)/number_of_pendulums ), 0.80,0.50, 0.4);
+        let ch2 = dp.Colors.new_hsla(((number_of_pendulums - 1- i)/number_of_pendulums), 0.80,0.50, 1.0);
         pv.add(dp.Pendulum.new_with_color(m1_def + i*0.00001, m2_def, a1 - 0.005 * i, a2 + 0.005 * i, l1_def + 0.001 * i, l2_def, damp_factor, ch, ch2));
-        // pv.remove(1);
     }
 };
 
@@ -46,6 +45,7 @@ let originX = 350;
 let originY = 300;
 let paint_background = false;
 let pause = false;
+let print_info = true;
 
 /*
 function that draws on each frame
@@ -117,7 +117,8 @@ const renderLoop = () => {
     for (let i = 0; i < pv.size(); i++) {
         pv.item_motion(i);
         drawInd(i);
-        printInfo(i);
+        if (print_info)
+            printInfo(i);
     }
     // if the animation is not pasued, then continue, else stop here.
     if (!pause)
@@ -125,7 +126,7 @@ const renderLoop = () => {
 };
 
 // creates the first set of pendulams
-createobject();
+createobject(starting_number_of_pendulums);
 // creates the first instance of rendering, which later calls itself
 // to continue the animation. 
 requestAnimationFrame(renderLoop);
@@ -174,9 +175,27 @@ document.getElementById('pause_background').onclick = function(){
     }
 }
 
+document.getElementById('gen_new_bg').onclick = function(){
+    var cnt = parseInt(document.getElementById('new_random_gen').value);
+    ctx.fillStyle = WHITE;
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    while(pv.size()){
+        pv.remove(0);
+    }
+    createobject(cnt);
+}
+
 /*
 Printing Info
 */
+
+document.getElementById('toggle_info_text').onclick = function(){
+    if (print_info){
+        print_info = false;
+    } else{
+        print_info = true;
+    }
+}
 
 let info = document.getElementById('info');
 const printInfo = (index) => {
