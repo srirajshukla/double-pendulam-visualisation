@@ -30,9 +30,22 @@
     <div class="Change-Background">
       <button id="change_backgound">Change Background Paint Status</button>
       <button id="pause_background">Pause Sim</button>
+      <button id="toggle_info_text">Toggle Info text</button>
+      <br>
+      If you're having performance issues, trying removing info (by toggle info text button)
+    </div>
+
+    <div class="New-Background">
+      <fieldset>
+        <label for="new_random_gen">Restart with: </label>
+        <input type="number" id = "new_random_gen" name="new_random_gen" min="0">
+        Pendulum
+        <button id="gen_new_bg">Generate!</button>
+      </fieldset>
     </div>
 
     <div class="Add-More-Pendulam">
+      <fieldset>
       <div class="params">
         <label for="m1cntrl">M1 </label> <br>
         <input type="range" id="m1cntrl" name="m1" min="5" max="20">
@@ -53,6 +66,7 @@
         <input type="color" id="bcolor" name="bcolor">
       </div>
       <button id="new_pendulam">Add One More Pendulam</button>
+      </fieldset>
     </div>
 
   </div>
