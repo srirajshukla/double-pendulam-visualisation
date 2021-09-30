@@ -45,7 +45,7 @@ let originX = 350;
 let originY = 300;
 let paint_background = false;
 let pause = false;
-let print_info = true;
+let print_info = false;
 
 /*
 function that draws on each frame
